@@ -460,7 +460,7 @@ var alamode = {
         pivots = _.sortBy(_.uniq( _.map(data, pivotColumn) ) );
 
     var uniqContainerClass = alamode.addContainerElement(htmlElement);
-    
+
     if (gradientBy === "cohort_column") {
       var colorsByCohort = {};
       cohorts.forEach(function (cohort) {
@@ -576,8 +576,8 @@ var alamode = {
         if (matches.length > 0) {
           entryValue = d3.mean( _.map(matches,valueColumn) );
           gradientValue = d3.mean( _.map(matches,gradientColumn) );
-        } 
-        
+        }
+
         row = row.concat( {column: valueColumn, value: entryValue, cohort: cohort, pivot: p, gradientValue: gradientValue } )
       })
       return row;
@@ -640,7 +640,7 @@ var alamode = {
 
         // Optional
         colors = o["color_gradient"] || ["#d73027","#f46d43","#fdae61","#fee08b","#ffffbf","#d9ef8b","#a6d96a","#66bd63","#1a9850"],
-        
+
         htmlElement = o["html_element"] || "body",
         title = o["title"] || queryName,
         xLabel = o["x_label"] || "",
@@ -657,7 +657,7 @@ var alamode = {
     var uniqContainerClass = alamode.addContainerElement(htmlElement);
 
     var color = d3.scale.quantize()
-      .domain(d3.extent(data, function(d) { 
+      .domain(d3.extent(data, function(d) {
         return Math.max(minValue, Math.min(maxValue, d[valueColumn]));
       }))
       .range(colors)
@@ -728,7 +728,7 @@ var alamode = {
     }
 
     function makeRow(data,xVal) {
-      
+
       var row = [ {column: xColumn, value: xVal } ];
       yVals.forEach(function(p) {
 
@@ -2144,7 +2144,7 @@ var alamode = {
       columnNames.forEach(function(c) { row.push(d[c]); })
       transformedData.push(row)
     })
-
+    console.log(transformedData);
     if (editable) {
       $("#" + id).pivotUI(
         transformedData, {
@@ -3258,15 +3258,15 @@ var alamode = {
       .add();
 
 
-     
+
     }, 250);
   },
 
   highChartsSeriesColor:function(o){
-    
-    var seriesColors = o["series_Colors"]; 
-       
- 
+
+    var seriesColors = o["series_Colors"];
+
+
     function consistentColors (series,seriesColors) {
 
       let seriesArray = new Array(series.length)
@@ -3278,12 +3278,12 @@ var alamode = {
         let seriesColor = seriesColors.filter(function(s) {
           return s.seriesName === series[i].name
         });
-        
+
         if(seriesColor[0] == null){
           console.log("Jon Color")
           seriesColor[0] = ''
         }
-        
+
         console.log(seriesColor[0].color)
 
         seriesArray[i] = {
@@ -3298,37 +3298,37 @@ var alamode = {
 
 
     }
- 
- 
+
+
  var loadCallbacks = [];
- 
+
    function appendOnLoadEvent(callback) {
      loadCallbacks.push(callback)
    }
-   
-   
- 
+
+
+
    appendOnLoadEvent(function() {
- 
- 
+
+
    })
- 
- 
+
+
    H = Highcharts;
    H.Chart.prototype.callbacks.push(function(chart) {
      for (var i = 0; i < loadCallbacks.length; ++i) loadCallbacks[i].call(this, event);
- 
+
      chart.update({
        series: consistentColors(this.series,seriesColors)
      })
- 
-       
-     
- 
- 
+
+
+
+
+
    });
-     
+
    }
-   
+
 
 }
